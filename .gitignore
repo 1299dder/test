@@ -1,29 +1,14 @@
-#include <vector>
-#include <functional>
-class observer
+#include <tuple>
+std::tuple<int, bool, float> foo()
 {
-	public:
-		virtual void notify() = 0;
-};
-class observer_concrete : public observer
+	return std::make_tuple(128, true, 1.5f);
+}
+int main()
 {
-	public:
-		virtual void notify() override
-		{ }
-};
-class subject
-{
-	public:
-		void register_observer(observer& o)
-		{
-			observers.push_back(o);
-		}
-		void notify_observers()
-		{
-			for (observer& o : observers) {
-				o.notify();
-			}
-		}
-	private:
-		std::vector<std::reference_wrapper<observer>> observers;
-};
+	std::tuple<int, bool, float> result = foo();
+	int value = std::get<0>(result);
+	int obj1;
+	bool obj2;
+	float obj3;
+	std::tie(obj1, obj2, obj3) = foo();
+}
